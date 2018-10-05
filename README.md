@@ -1,2 +1,2 @@
-# password_checker
+# Intrusion detector 
 Machine learning password checker application.
