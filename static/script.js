@@ -16,9 +16,18 @@
 // [START gae_python37_log]
 'use strict';
 
-window.addEventListener('load', function () {
+/*window.addEventListener('load', function () {
 
   console.log("Hello World!");
 
 });
-// [END gae_python37_log]
+// [END gae_python37_log]*/
+function myFunction() {
+  alert("Welcome");
+  /*$.ajax({
+        type: "POST",
+        url: "/chat",
+        data: {'username': username, 'password':password},
+        cache: false
+    });*/
+}
