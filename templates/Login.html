@@ -16,7 +16,22 @@
     <label for="password"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="password" required>
     <br>
-    <input type="button" onclick="myFunction()" value="Login"/>
+    <button onclick="save_data()">Submit</button>
 </div>
+<script>
+function save_data() {
+    <!-- get_username and get_password will give you details of user input data-->
+  var user_name = document.getElementsByName("username");
+  var password = document.getElementsByName("password");
+  var get_username = "";
+  var get_password = "";
+  for (var index = 0; index < user_name.length; index++) {
+    get_username = get_username + user_name[index].value;
+};
+  for (var index = 0; index < password.length; index++) {
+    get_password = get_password + password[index].value;
+};
+}
+</script>
 </body>
 </html>
