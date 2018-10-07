@@ -68,7 +68,7 @@ class Statistics(object):
         :return: (float) variance value
         """
 
-        square_diff = [(x-mean)^2 for x in data_list]
+        square_diff = [(x-mean)**2 for x in data_list]
         return sum(square_diff)/float(len(data_list))
 
     @classmethod

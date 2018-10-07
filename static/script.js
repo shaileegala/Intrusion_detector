@@ -63,16 +63,24 @@ $(document).ready(function () {
     });
 
     $('#password').keypress(function (e) {
-        passwordTimeStamp.push(new Date().getTime());
+        if (e.keyCode != 13){
+            passwordTimeStamp.push(new Date().getTime());
+        }
     });
     $('#password1').keypress(function (e) {
-        password1TimeStamp.push(new Date().getTime());
+        if (e.keyCode != 13){
+            password1TimeStamp.push(new Date().getTime());
+        }
     });
     $('#password2').keypress(function (e) {
-        password2TimeStamp.push(new Date().getTime());
+        if (e.keyCode != 13){
+            password2TimeStamp.push(new Date().getTime());
+        }
     });
     $('#password3').keypress(function (e) {
-        password3TimeStamp.push(new Date().getTime());
+        if (e.keyCode != 13){
+            password3TimeStamp.push(new Date().getTime());
+        }
     });
 });
 

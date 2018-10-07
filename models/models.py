@@ -17,7 +17,7 @@ class User(object):
     # Insert into User Table
     def insert_into_user(cls, username, fname, lname):
         conn = Connection()
-        query = "INSERT INTO User (FName, LName, Username) VALUES({fname}, {lname}, {username})".format(fname=fname, lname=lname, username=username)
+        query = "INSERT INTO User (FName, LName, Username) VALUES('{fname}', '{lname}', '{username}')".format(fname=fname, lname=lname, username=username)
         cur = conn.get_cursor()
         cur.execute(query)
         conn.connection.commit()
@@ -27,7 +27,7 @@ class User(object):
     # Fetch from User Table
     def fetch_by_username(cls, username):
         conn = Connection()
-        query = "SELECT * FROM User WHERE Username = {uname}".format(uname=username)
+        query = "SELECT * FROM User WHERE Username = '{uname}'".format(uname=username)
         cur = conn.get_cursor()
         cur.execute(query)
         user_row_dict = cur.fetchone()
@@ -56,7 +56,7 @@ class Password(object):
         cur.execute(query)
         conn.connection.commit()
 
-        query = "INSERT INTO Passwords (IsCurrent, Password, UserID) VALUES({iscurrent}, {password}, {userid})".format(
+        query = "INSERT INTO Passwords (IsCurrent, Password, UserID) VALUES({iscurrent}, '{password}', {userid})".format(
             iscurrent=True, password=password, userid=userid)
         cur.execute(query)
         conn.connection.commit()
@@ -65,7 +65,7 @@ class Password(object):
     @classmethod
     def fetch_by_userid(cls, userid, password):
         conn = Connection()
-        query = "SELECT * FROM Passwords WHERE Userid = {userid} AND Password = {password}".format(
+        query = "SELECT * FROM Passwords WHERE Userid = {userid} AND Password = '{password}'".format(
             userid=userid, password=password)
         cur = conn.get_cursor()
         cur.execute(query)

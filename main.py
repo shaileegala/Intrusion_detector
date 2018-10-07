@@ -18,7 +18,7 @@ from views.views import UserView
 import datetime
 
 from flask import Flask, render_template, request
-from json import loads
+from json import loads, dumps
 
 app = Flask(__name__)
 
@@ -47,9 +47,9 @@ def loginSubmit():
     # print(data)
     userName = data['userName']
     password = data['password']
-    passwordTimeStamp = data['passwordTimeStamp']
-    response = UserView.login(username=userName,password=password,time_array=passwordTimeStamp)
-    return response.data()
+    passwordTimeStamp = float(data['passwordTimeStamp'])//float(1000)
+    response = UserView.login(username=userName,password=password,timestamp_array=passwordTimeStamp)
+    return dumps(response.data_dict())
 
 
 @app.route('/signup', methods=['GET'])
@@ -69,11 +69,12 @@ def signUpSubmit():
     lName = data['lName']
     userName = data['userName']
     password = data['password']
-    password1TimeStamp = data['password1TimeStamp']
-    password2TimeStamp = data['password2TimeStamp']
-    password3TimeStamp = data['password3TimeStamp']
-    response = UserView.register(username=userName,fname=fName,lname=lName,password=password,time_array1=password1TimeStamp,time_array2=password2TimeStamp,time_array3=password3TimeStamp)
-    return response.data()
+    password1TimeStamp = float(data['password1TimeStamp'])/float(1000)
+    password2TimeStamp = float(data['password2TimeStamp'])/float(1000)
+    password3TimeStamp = float(data['password3TimeStamp'])/float(1000)
+    print(password1TimeStamp, password2TimeStamp, password3TimeStamp)
+    response = UserView.register(username=userName,fname=fName,lname=lName,password=password,timestamp_array1=password1TimeStamp,timestamp_array2=password2TimeStamp,timestamp_array3=password3TimeStamp)
+    return dumps(response.data_dict())
 
 
 if __name__ == '__main__':

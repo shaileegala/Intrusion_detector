@@ -9,7 +9,7 @@ class Response(object):
         self.message = message
         self.data = data
 
-    def data(self):
+    def data_dict(self):
         return {
             'code': self.code,
             'message': self.message,
@@ -21,6 +21,18 @@ class UserView(object):
 
     @classmethod
     def register(cls, username, fname, lname, password, timestamp_array1, timestamp_array2, timestamp_array3):
+
+        time_array1 = []
+        for i in range(len(timestamp_array1) - 1):
+            time_array1.append(timestamp_array1[i + 1] - timestamp_array1[i])
+
+        time_array2 = []
+        for i in range(len(timestamp_array2) - 1):
+            time_array2.append(timestamp_array2[i + 1] - timestamp_array2[i])
+
+        time_array3 = []
+        for i in range(len(timestamp_array3) - 1):
+            time_array3.append(timestamp_array3[i + 1] - timestamp_array3[i])
 
         # Create user
         User.insert_into_user(username=username, fname=fname, lname=lname)
@@ -34,11 +46,11 @@ class UserView(object):
         # Fetch the password
         password = Password.fetch_by_userid(userid=user.id, password=password)
 
-        array1_sum = Statistics.sum(timestamp_array1)
-        array2_sum = Statistics.sum(timestamp_array2)
-        array3_sum = Statistics.sum(timestamp_array3)
+        array1_sum = Statistics.sum(time_array1)
+        array2_sum = Statistics.sum(time_array2)
+        array3_sum = Statistics.sum(time_array3)
         total_sum = array1_sum + array2_sum + array3_sum
-        total_lens = len(timestamp_array1) + len(timestamp_array2) + len(timestamp_array3)
+        total_lens = len(time_array1) + len(time_array2) + len(time_array3)
 
         # Insert password analytics
         PasswordAnalytics.insert_into_password_analytics(password_id=password.id, aggregate=total_sum, count=total_lens)
@@ -64,6 +76,7 @@ class UserView(object):
 
         # Get statistics of user input
         sample_stats = Statistics(data_list=timestamp_array)
+        sample_stats.compute_all()
 
         # Get statistics of existing inputs
         population_mean = Statistics.mean(password_analytics.aggregate, password_analytics.count)
@@ -77,7 +90,10 @@ class UserView(object):
         # Calculating the t distribution
         t_dist_min, t_dist_max = TTests.t_distribution(sample_length=sample_stats.data_list_len_f, alpha=0.05)
 
+        print(t_stat, t_dist_min, t_dist_max)
+
         if t_stat < t_dist_min or t_stat > t_dist_max:
             return Response(code=400, message='Intrusion Detected')
         else:
+            # TODO PasswordAnalytics.update(sample_aggregate, sample_count)
             return Response(code=200, message='OK')
