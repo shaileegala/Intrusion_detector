@@ -68,6 +68,9 @@ class UserView(object):
         # Fetch user
         user = User.fetch_by_username(username=username)
 
+        if not user:
+            return Response(code=400, message='Invalid Username')
+
         # Fetch Password object
         password = Password.fetch_by_userid(userid=user.id, password=password)
 
