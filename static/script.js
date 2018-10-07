@@ -96,7 +96,7 @@ function logIn() {
         cache: false,
         data: JSON.stringify({"userName": username, "password": password, "passwordTimeStamp": passwordTimeStamp}),
         success: function (resp) {
-            alert("resp");
+            alert(resp);
         },
         error: function (req, status, err) {
             alert(err);
@@ -133,7 +133,7 @@ function register() {
             "password3TimeStamp": password3TimeStamp
         }),
         success: function (resp) {
-            alert("resp");
+            alert(resp);
         },
         error: function (req, status, err) {
             alert(err);
