@@ -39,7 +39,7 @@ class User(object):
                         lname=user_row_dict['LName'])
 
 
-class Passwords(object):
+class Password(object):
 
     def __init__(self, id, userid):
         self.id = id
@@ -75,7 +75,7 @@ class Passwords(object):
         conn.close_connection()
 
         if passwords_row_dict:
-            return Passwords(id=passwords_row_dict['ID'], userid=passwords_row_dict['UserID'])
+            return Password(id=passwords_row_dict['ID'], userid=passwords_row_dict['UserID'])
 
 
 class PasswordAnalytics(object):

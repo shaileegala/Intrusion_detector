@@ -48,35 +48,43 @@ class Statistics(object):
     def __init__(self, data_list):
 
         self.data_list = data_list
-        self.data_list_len_f = len(data_list)
-        self.data_list_sum = sum(data_list)
-        self.data_list_mean = None
 
-    def mean(self):
+    @classmethod
+    def sum(cls, data_list):
+        return sum(data_list)
+
+    @classmethod
+    def mean(cls, summation, list_length):
         """
 
         :return: (float) mean value
         """
-        if self.data_list_mean:
-            return self.data_list_mean
+        return summation/float(list_length)
 
-        self.data_list_mean = self.data_list_sum/self.data_list_len_f
-        return self.data_list_mean
-
-    def variance(self):
+    @classmethod
+    def variance(cls, data_list, mean):
         """
 
         :return: (float) variance value
         """
-        mean = self.mean()
 
-        square_diff = [(x-mean)^2 for x in self.data_list]
-        return sum(square_diff)/self.data_list_len_f
+        square_diff = [(x-mean)^2 for x in data_list]
+        return sum(square_diff)/float(len(data_list))
 
-    def standard_dev(self):
+    @classmethod
+    def standard_dev(cls, variance):
         """
 
         :return: (float) standard deviation
         """
-        return sqrt(self.variance())
+        return sqrt(variance)
+
+    def compute_all(self):
+        self.data_list_len_f = len(self.data_list)
+        data_list_sum = self.sum(self.data_list)
+        self.data_list_mean = self.mean(data_list_sum, self.data_list_len_f)
+        self.data_list_variance = self.variance(self.data_list, self.data_list_mean)
+        self.data_list_standard_dev = self.standard_dev(self.data_list_variance)
+
+
 
