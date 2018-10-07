@@ -29,6 +29,11 @@ var password2TimeStamp = [];
 var password3TimeStamp = [];
 
 $(document).ready(function () {
+    passwordTimeStamp = [];
+    password1TimeStamp = [];
+    password2TimeStamp = [];
+    password3TimeStamp = [];
+
     $('#password').keyup(function (e) {
         var cursorAt = e.target.selectionStart;
         if (e.keyCode == 8 || e.keyCode == 46) {
@@ -96,9 +101,17 @@ function logIn() {
         cache: false,
         data: JSON.stringify({"userName": username, "password": password, "passwordTimeStamp": passwordTimeStamp}),
         success: function (resp) {
-            alert(resp);
+            passwordTimeStamp = [];
+            password1TimeStamp = [];
+            password2TimeStamp = [];
+            password3TimeStamp = [];
+            alert(resp.message);
         },
         error: function (req, status, err) {
+            passwordTimeStamp = [];
+            password1TimeStamp = [];
+            password2TimeStamp = [];
+            password3TimeStamp = [];
             alert(err);
         }
     });
@@ -133,9 +146,17 @@ function register() {
             "password3TimeStamp": password3TimeStamp
         }),
         success: function (resp) {
-            alert(resp);
+            passwordTimeStamp = [];
+            password1TimeStamp = [];
+            password2TimeStamp = [];
+            password3TimeStamp = [];
+            alert(resp.message);
         },
         error: function (req, status, err) {
+            passwordTimeStamp = [];
+            password1TimeStamp = [];
+            password2TimeStamp = [];
+            password3TimeStamp = [];
             alert(err);
         }
     });

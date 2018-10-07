@@ -81,8 +81,8 @@ class Statistics(object):
 
     def compute_all(self):
         self.data_list_len_f = len(self.data_list)
-        data_list_sum = self.sum(self.data_list)
-        self.data_list_mean = self.mean(data_list_sum, self.data_list_len_f)
+        self.data_list_sum = self.sum(self.data_list)
+        self.data_list_mean = self.mean(self.data_list_sum, self.data_list_len_f)
         self.data_list_variance = self.variance(self.data_list, self.data_list_mean)
         self.data_list_standard_dev = self.standard_dev(self.data_list_variance)
 

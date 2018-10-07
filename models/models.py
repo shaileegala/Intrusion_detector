@@ -114,6 +114,17 @@ class PasswordAnalytics(object):
                                      passwordid=passwordanalytics_row_dict['PasswordID'])
 
 
+    def update_analytics(self, sample_aggregate, sample_count):
+        conn = Connection()
+
+        # Update for all passwords of userid iscurrent=False
+        query = "UPDATE PasswordAnalytics SET Aggregate = {0}, Count={1} WHERE PasswordID = {2}".format(
+            self.aggregate+sample_aggregate, self.count+sample_count, self.passwordid)
+
+        cur = conn.get_cursor()
+        cur.execute(query)
+        conn.connection.commit()
+
 # Get mean
 
 # Update Total and Count
