@@ -12,13 +12,70 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 // [START gae_python37_log]
 'use strict';
 
-window.addEventListener('load', function () {
+/*window.addEventListener('load', function () {
 
   console.log("Hello World!");
 
 });
-// [END gae_python37_log]
+// [END gae_python37_log]*/
+
+function logIn() {
+    var username = $('#username')[0].value;
+    var password = $('#password')[0].value;
+    // console.log(fname);
+    $.ajax({
+        type: "POST",
+        url: "/login",
+        contentType: "application/json",
+        processData: false,
+        cache: false,
+        data: JSON.stringify({"userName": username, "password": password, "passwordTime": []}),
+        success: function (resp) {
+            alert("Success");
+        },
+        error: function (req, status, err) {
+            alert(err);
+        }
+    });
+}
+
+function register() {
+    var fname = $('#fname')[0].value;
+    var lname = $('#lname')[0].value;
+    var username = $('#username')[0].value;
+    var password1 = $('#password1')[0].value;
+    var password2 = $('#password2')[0].value;
+    var password3 = $('#password3')[0].value;
+    if (!(password1 == password2 && password2 == password3)) {
+        alert("Password does not matches.");
+        return;
+    }
+    var password = password1;
+    // console.log(fname);
+    $.ajax({
+        type: "POST",
+        url: "/signup",
+        contentType: "application/json",
+        processData: false,
+        cache: false,
+        data: JSON.stringify({
+            "fName": fname,
+            "lName": lname,
+            "userName": username,
+            "password": password,
+            "password1Time": [],
+            "password2Time": [],
+            "password3Time": []
+        }),
+        success: function (resp) {
+            alert("Success");
+        },
+        error: function (req, status, err) {
+            alert(err);
+        }
+    });
+}

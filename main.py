@@ -15,7 +15,8 @@
 # [START gae_python37_render_template]
 import datetime
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from json import loads
 
 app = Flask(__name__)
 
@@ -24,12 +25,51 @@ app = Flask(__name__)
 def root():
     # For the sake of example, use static information to inflate the template.
     # This will be replaced with real information in later steps.
-    dummy_times = [datetime.datetime(2018, 1, 1, 10, 0, 0),
-                   datetime.datetime(2018, 1, 2, 10, 30, 0),
-                   datetime.datetime(2018, 1, 3, 11, 0, 0),
-                   ]
+    # dummy_times = [datetime.datetime(2018, 1, 1, 10, 0, 0),
+    #                datetime.datetime(2018, 1, 2, 10, 30, 0),
+    #                datetime.datetime(2018, 1, 3, 11, 0, 0),
+    #                ]
 
-    return render_template('index.html', times=dummy_times)
+    # return render_template('index.html', times=dummy_times)
+    return render_template('index.html')
+
+
+@app.route('/login', methods=['GET'])
+def login():
+    return render_template('Login.html')
+
+
+@app.route('/login', methods=['POST'])
+def loginSubmit():
+    data = loads(request.data)
+    # print(data)
+    userName = data['userName']
+    password = data['password']
+    passwordTime = data['passwordTime']
+    return "yah!"
+
+
+@app.route('/signup', methods=['GET'])
+def signUp():
+    # print("In get sign up")
+    return render_template('SignUp.html')
+
+
+@app.route('/signup', methods=['POST'])
+def signUpSubmit():
+    # print("In post sign up")
+    # print(request.data)
+    data = loads(request.data)
+    # print(data)
+    fName = data['fName']
+    # print("fname: " + fName)
+    lName = data['lName']
+    userName = data['userName']
+    password = data['password']
+    password1Time = data['password1Time']
+    password2Time = data['password2Time']
+    password3Time = data['password3Time']
+    return "yah!"
 
 
 if __name__ == '__main__':
