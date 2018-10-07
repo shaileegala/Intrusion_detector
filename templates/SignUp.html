@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h1>Sign Up</h1>
+<div class="container">
+    {#    <form onsubmit="register()">#}
+    <label for="fname"><b>Enter First name</b></label>
+    <input type="text" placeholder="Enter First name" id="fname" required>
+    <br>
+    <label for="lname"><b>Enter Last name</b></label>
+    <input type="text" placeholder="Enter Last name" id="lname">
+    <br>
+    <label for="username"><b>Enter Username</b></label>
+    <input type="text" placeholder="Enter Username" id="username" required>
+    <br>
+    <label for="password1"><b>Enter Password</b></label>
+    <input type="password" placeholder="Enter Password" id="password1" required>
+    <br>
+    <label for="password2"><b>Confirm Password</b></label>
+    <input type="password" placeholder="Confirm Password" id="password2" required>
+    <br>
+    <label for="password3"><b>Re-Confirm Password</b></label>
+    <input type="password" placeholder="Re-Confirm Password" id="password3" required>
+    <br>
+    <input type="button" onclick="register()" value="SignUp"/>
+    {#    </form>#}
+</div>
+</body>
+</html>

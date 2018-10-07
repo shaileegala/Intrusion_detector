@@ -35,3 +35,27 @@ function myFunction() {
 function logIn() {
     document.location.href("/login");
 }
+
+function register() {
+    var fname = $('#fname')[0].value;
+    var lname = $('#lname')[0].value;
+    var username = $('#username')[0].value;
+    var password1 = $('#password1')[0].value;
+    var password2 = $('#password2')[0].value;
+    var password3 = $('#password3')[0].value;
+    // console.log(fname);
+    $.ajax({
+        type: "POST",
+        url: "/signup",
+        contentType: "application/json",
+        processData: false,
+        cache:false,
+        data: JSON.stringify({"fName": fname, "lName": lname, "userName": username, 'password1': password1, 'password2': password2, 'password3': password3}),
+        success: function (resp) {
+            alert("Success");
+        },
+        error: function (req, status, err) {
+            alert(err);
+        }
+    });
+}

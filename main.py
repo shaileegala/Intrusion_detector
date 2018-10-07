@@ -15,7 +15,8 @@
 # [START gae_python37_render_template]
 import datetime
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from json import loads
 
 app = Flask(__name__)
 
@@ -32,10 +33,32 @@ def root():
     # return render_template('index.html', times=dummy_times)
     return render_template('index.html')
 
+
 @app.route('/login')
 def login():
-    print('helloooo')
     return render_template('Login.html')
+
+
+@app.route('/signup', methods=['GET'])
+def signUp():
+    # print("In get sign up")
+    return render_template('SignUp.html')
+
+@app.route('/signup', methods=['POST'])
+def signUpSubmit():
+    # print("In post sign up")
+    # print(request.data)
+    data = loads(request.data)
+    # print(data)
+    fName = data['fName']
+    # print("fname: " + fName)
+    lName = data['lName']
+    userName = data['userName']
+    password1 = data['password1']
+    password2 = data['password2']
+    password3 = data['password3']
+    return "yah!"
+
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
