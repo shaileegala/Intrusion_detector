@@ -32,10 +32,12 @@ def root():
     # return render_template('index.html', times=dummy_times)
     return render_template('index.html')
 
+
 @app.route('/login')
 def login():
-    print('helloooo')
+    # print('helloooo')
     return render_template('Login.html')
+
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
