@@ -23,6 +23,59 @@
 });
 // [END gae_python37_log]*/
 
+var passwordTimeStamp = [];
+var password1TimeStamp = [];
+var password2TimeStamp = [];
+var password3TimeStamp = [];
+
+$(document).ready(function () {
+    $('#password').keyup(function (e) {
+        var cursorAt = e.target.selectionStart;
+        if (e.keyCode == 8 || e.keyCode == 46) {
+            // console.log("back space");
+            // console.log("Caret at: ", cursorAt);
+            passwordTimeStamp.splice(cursorAt, 1);
+        }
+    });
+    $('#password1').keyup(function (e) {
+        var cursorAt = e.target.selectionStart;
+        if (e.keyCode == 8 || e.keyCode == 46) {
+            // console.log("back space");
+            // console.log("Caret at: ", cursorAt);
+            password1TimeStamp.splice(cursorAt, 1);
+        }
+    });
+    $('#password2').keyup(function (e) {
+        var cursorAt = e.target.selectionStart;
+        if (e.keyCode == 8 || e.keyCode == 46) {
+            // console.log("back space");
+            // console.log("Caret at: ", cursorAt);
+            password2TimeStamp.splice(cursorAt, 1);
+        }
+    });
+    $('#password3').keyup(function (e) {
+        var cursorAt = e.target.selectionStart;
+        if (e.keyCode == 8 || e.keyCode == 46) {
+            // console.log("back space");
+            // console.log("Caret at: ", cursorAt);
+            password3TimeStamp.splice(cursorAt, 1);
+        }
+    });
+
+    $('#password').keypress(function (e) {
+        passwordTimeStamp.push(new Date().getTime());
+    });
+    $('#password1').keypress(function (e) {
+        password1TimeStamp.push(new Date().getTime());
+    });
+    $('#password2').keypress(function (e) {
+        password2TimeStamp.push(new Date().getTime());
+    });
+    $('#password3').keypress(function (e) {
+        password3TimeStamp.push(new Date().getTime());
+    });
+});
+
 function logIn() {
     var username = $('#username')[0].value;
     var password = $('#password')[0].value;
@@ -33,7 +86,7 @@ function logIn() {
         contentType: "application/json",
         processData: false,
         cache: false,
-        data: JSON.stringify({"userName": username, "password": password, "passwordTime": []}),
+        data: JSON.stringify({"userName": username, "password": password, "passwordTimeStamp": passwordTimeStamp}),
         success: function (resp) {
             alert("Success");
         },
@@ -67,9 +120,9 @@ function register() {
             "lName": lname,
             "userName": username,
             "password": password,
-            "password1Time": [],
-            "password2Time": [],
-            "password3Time": []
+            "password1TimeStamp": password1TimeStamp,
+            "password2TimeStamp": password2TimeStamp,
+            "password3TimeStamp": password3TimeStamp
         }),
         success: function (resp) {
             alert("Success");
