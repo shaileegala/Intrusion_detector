@@ -63,22 +63,22 @@ $(document).ready(function () {
     });
 
     $('#password').keypress(function (e) {
-        if (e.keyCode != 13){
+        if (e.keyCode != 13) {
             passwordTimeStamp.push(new Date().getTime());
         }
     });
     $('#password1').keypress(function (e) {
-        if (e.keyCode != 13){
+        if (e.keyCode != 13) {
             password1TimeStamp.push(new Date().getTime());
         }
     });
     $('#password2').keypress(function (e) {
-        if (e.keyCode != 13){
+        if (e.keyCode != 13) {
             password2TimeStamp.push(new Date().getTime());
         }
     });
     $('#password3').keypress(function (e) {
-        if (e.keyCode != 13){
+        if (e.keyCode != 13) {
             password3TimeStamp.push(new Date().getTime());
         }
     });
@@ -96,7 +96,7 @@ function logIn() {
         cache: false,
         data: JSON.stringify({"userName": username, "password": password, "passwordTimeStamp": passwordTimeStamp}),
         success: function (resp) {
-            alert("Success");
+            alert("resp");
         },
         error: function (req, status, err) {
             alert(err);
@@ -133,7 +133,7 @@ function register() {
             "password3TimeStamp": password3TimeStamp
         }),
         success: function (resp) {
-            alert("Success");
+            alert("resp");
         },
         error: function (req, status, err) {
             alert(err);
