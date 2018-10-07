@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 // [START gae_python37_log]
 'use strict';
 
@@ -23,11 +23,15 @@
 });
 // [END gae_python37_log]*/
 function myFunction() {
-  alert("Welcome");
-  /*$.ajax({
-        type: "POST",
-        url: "/chat",
-        data: {'username': username, 'password':password},
-        cache: false
-    });*/
+    alert("Welcome");
+    /*$.ajax({
+          type: "POST",
+          url: "/chat",
+          data: {'username': username, 'password':password},
+          cache: false
+      });*/
+}
+
+function logIn() {
+    document.location.href("/login");
 }
