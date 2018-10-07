@@ -63,6 +63,8 @@ class UserView(object):
         time_array = []
         for i in range(len(timestamp_array) -1):
             time_array.append(float(timestamp_array[i+1] - timestamp_array[i])/float(1000))
+
+        print(time_array)
         # Fetch user
         user = User.fetch_by_username(username=username)
 
@@ -89,12 +91,12 @@ class UserView(object):
                                     sample_length=sample_stats.data_list_len_f)
 
         # Calculating the t distribution
-        t_dist_min, t_dist_max = TTests.t_distribution(sample_length=sample_stats.data_list_len_f, alpha=0.05)
+        t_dist_min, t_dist_max = TTests.t_distribution(sample_length=sample_stats.data_list_len_f, alpha=0.01)
 
         print(t_stat, t_dist_min, t_dist_max)
 
         if t_stat < t_dist_min or t_stat > t_dist_max:
             return Response(code=400, message='Intrusion Detected')
         else:
-            # TODO PasswordAnalytics.update(sample_aggregate, sample_count)
+            password_analytics.update_analytics(sample_stats.data_list_sum, int(sample_stats.data_list_len_f))
             return Response(code=200, message='OK')
