@@ -42,7 +42,7 @@ def login():
 @app.route('/login', methods=['POST'])
 def loginSubmit():
     data = loads(request.data)
-    print(data)
+    # print(data)
     userName = data['userName']
     password = data['password']
     passwordTime = data['passwordTime']
@@ -60,7 +60,7 @@ def signUpSubmit():
     # print("In post sign up")
     # print(request.data)
     data = loads(request.data)
-    print(data)
+    # print(data)
     fName = data['fName']
     # print("fname: " + fName)
     lName = data['lName']
