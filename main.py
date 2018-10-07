@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from views.views import UserView
+
 # [START gae_python37_render_template]
 import datetime
 
@@ -45,8 +47,9 @@ def loginSubmit():
     # print(data)
     userName = data['userName']
     password = data['password']
-    passwordTime = data['passwordTime']
-    return "yah!"
+    passwordTimeStamp = data['passwordTimeStamp']
+    response = UserView.login(username=userName,password=password,time_array=passwordTimeStamp)
+    return response.data()
 
 
 @app.route('/signup', methods=['GET'])
@@ -66,10 +69,11 @@ def signUpSubmit():
     lName = data['lName']
     userName = data['userName']
     password = data['password']
-    password1Time = data['password1Time']
-    password2Time = data['password2Time']
-    password3Time = data['password3Time']
-    return "yah!"
+    password1TimeStamp = data['password1TimeStamp']
+    password2TimeStamp = data['password2TimeStamp']
+    password3TimeStamp = data['password3TimeStamp']
+    response = UserView.register(username=userName,fname=fName,lname=lName,password=password,time_array1=password1TimeStamp,time_array2=password2TimeStamp,time_array3=password3TimeStamp)
+    return response.data()
 
 
 if __name__ == '__main__':
