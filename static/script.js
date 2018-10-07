@@ -22,18 +22,25 @@
 
 });
 // [END gae_python37_log]*/
-function myFunction() {
-    alert("Welcome");
-    /*$.ajax({
-          type: "POST",
-          url: "/chat",
-          data: {'username': username, 'password':password},
-          cache: false
-      });*/
-}
 
 function logIn() {
-    document.location.href("/login");
+    var username = $('#username')[0].value;
+    var password = $('#password')[0].value;
+    // console.log(fname);
+    $.ajax({
+        type: "POST",
+        url: "/login",
+        contentType: "application/json",
+        processData: false,
+        cache: false,
+        data: JSON.stringify({"userName": username, "password": password, "passwordTime": []}),
+        success: function (resp) {
+            alert("Success");
+        },
+        error: function (req, status, err) {
+            alert(err);
+        }
+    });
 }
 
 function register() {
@@ -43,14 +50,27 @@ function register() {
     var password1 = $('#password1')[0].value;
     var password2 = $('#password2')[0].value;
     var password3 = $('#password3')[0].value;
+    if (!(password1 == password2 && password2 == password3)) {
+        alert("Password does not matches.");
+        return;
+    }
+    var password = password1;
     // console.log(fname);
     $.ajax({
         type: "POST",
         url: "/signup",
         contentType: "application/json",
         processData: false,
-        cache:false,
-        data: JSON.stringify({"fName": fname, "lName": lname, "userName": username, 'password1': password1, 'password2': password2, 'password3': password3}),
+        cache: false,
+        data: JSON.stringify({
+            "fName": fname,
+            "lName": lname,
+            "userName": username,
+            "password": password,
+            "password1Time": [],
+            "password2Time": [],
+            "password3Time": []
+        }),
         success: function (resp) {
             alert("Success");
         },

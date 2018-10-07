@@ -34,9 +34,19 @@ def root():
     return render_template('index.html')
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET'])
 def login():
     return render_template('Login.html')
+
+
+@app.route('/login', methods=['POST'])
+def loginSubmit():
+    data = loads(request.data)
+    print(data)
+    userName = data['userName']
+    password = data['password']
+    passwordTime = data['passwordTime']
+    return "yah!"
 
 
 @app.route('/signup', methods=['GET'])
@@ -44,19 +54,21 @@ def signUp():
     # print("In get sign up")
     return render_template('SignUp.html')
 
+
 @app.route('/signup', methods=['POST'])
 def signUpSubmit():
     # print("In post sign up")
     # print(request.data)
     data = loads(request.data)
-    # print(data)
+    print(data)
     fName = data['fName']
     # print("fname: " + fName)
     lName = data['lName']
     userName = data['userName']
-    password1 = data['password1']
-    password2 = data['password2']
-    password3 = data['password3']
+    password = data['password']
+    password1Time = data['password1Time']
+    password2Time = data['password2Time']
+    password3Time = data['password3Time']
     return "yah!"
 
 
