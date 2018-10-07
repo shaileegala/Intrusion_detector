@@ -139,3 +139,6 @@ venv.bak/
 # .idea/modules.xml
 # .idea/*.iml
 # .idea/modules
+
+# Custom files
+envs.py
