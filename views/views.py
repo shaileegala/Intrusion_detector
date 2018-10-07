@@ -20,7 +20,7 @@ class Response(object):
 class UserView(object):
 
     @classmethod
-    def register(cls, username, fname, lname, password, time_array1, time_array2, time_array3):
+    def register(cls, username, fname, lname, password, timestamp_array1, timestamp_array2, timestamp_array3):
 
         # Create user
         User.insert_into_user(username=username, fname=fname, lname=lname)
@@ -34,11 +34,11 @@ class UserView(object):
         # Fetch the password
         password = Password.fetch_by_userid(userid=user.id, password=password)
 
-        array1_sum = Statistics.sum(time_array1)
-        array2_sum = Statistics.sum(time_array2)
-        array3_sum = Statistics.sum(time_array3)
+        array1_sum = Statistics.sum(timestamp_array1)
+        array2_sum = Statistics.sum(timestamp_array2)
+        array3_sum = Statistics.sum(timestamp_array3)
         total_sum = array1_sum + array2_sum + array3_sum
-        total_lens = len(time_array1) + len(time_array2) + len(time_array3)
+        total_lens = len(timestamp_array1) + len(timestamp_array2) + len(timestamp_array3)
 
         # Insert password analytics
         PasswordAnalytics.insert_into_password_analytics(password_id=password.id, aggregate=total_sum, count=total_lens)
@@ -46,8 +46,10 @@ class UserView(object):
         return Response(code=200, message='OK')
 
     @classmethod
-    def login(cls, username, password, time_array):
-
+    def login(cls, username, password, timestamp_array):
+        time_array = []
+        for i in range(len(timestamp_array) -1):
+            time_array.append(timestamp_array[i+1] - timestamp_array[i])
         # Fetch user
         user = User.fetch_by_username(username=username)
 
@@ -61,7 +63,7 @@ class UserView(object):
         password_analytics = PasswordAnalytics.fetch_by_password_id(password_id=password.id)
 
         # Get statistics of user input
-        sample_stats = Statistics(data_list=time_array)
+        sample_stats = Statistics(data_list=timestamp_array)
 
         # Get statistics of existing inputs
         population_mean = Statistics.mean(password_analytics.aggregate, password_analytics.count)
