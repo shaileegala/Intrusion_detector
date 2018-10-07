@@ -24,16 +24,17 @@ class UserView(object):
 
         time_array1 = []
         for i in range(len(timestamp_array1) - 1):
-            time_array1.append(timestamp_array1[i + 1] - timestamp_array1[i])
+            time_array1.append(float(timestamp_array1[i + 1] - timestamp_array1[i])/float(1000))
 
         time_array2 = []
         for i in range(len(timestamp_array2) - 1):
-            time_array2.append(timestamp_array2[i + 1] - timestamp_array2[i])
+            time_array2.append(float(timestamp_array2[i + 1] - timestamp_array2[i])/float(1000))
 
         time_array3 = []
         for i in range(len(timestamp_array3) - 1):
-            time_array3.append(timestamp_array3[i + 1] - timestamp_array3[i])
+            time_array3.append(float(timestamp_array3[i + 1] - timestamp_array3[i])/float(1000))
 
+        print(time_array1, time_array2, time_array3)
         # Create user
         User.insert_into_user(username=username, fname=fname, lname=lname)
 
@@ -61,7 +62,7 @@ class UserView(object):
     def login(cls, username, password, timestamp_array):
         time_array = []
         for i in range(len(timestamp_array) -1):
-            time_array.append(timestamp_array[i+1] - timestamp_array[i])
+            time_array.append(float(timestamp_array[i+1] - timestamp_array[i])/float(1000))
         # Fetch user
         user = User.fetch_by_username(username=username)
 
@@ -75,7 +76,7 @@ class UserView(object):
         password_analytics = PasswordAnalytics.fetch_by_password_id(password_id=password.id)
 
         # Get statistics of user input
-        sample_stats = Statistics(data_list=timestamp_array)
+        sample_stats = Statistics(data_list=time_array)
         sample_stats.compute_all()
 
         # Get statistics of existing inputs
